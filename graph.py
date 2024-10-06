@@ -17,23 +17,25 @@ class graph:
         else:
             return False
 
-    def print_graph(self) -> None:
-
+    def print_graph(self) -> None:  
         for key, value in self.adjlist.items():
             print(f"{key} : {value}")
 
     def remove_edge(self, vertex1: str, vertex2: str) -> bool:
         if (vertex1 and vertex2) in self.adjlist.keys():
-            self.adjlist[vertex1].remove(vertex2)
-            self.adjlist[vertex2].remove(vertex1)
+            try:
+                self.adjlist[vertex1].remove(vertex2)
+                self.adjlist[vertex2].remove(vertex1)
+            except ValueError:
+                pass
             return True
         return False
 
-    def remove_vertex(self, vertex1: str) -> bool:
-        if vertex1 in self.adjlist.keys():
-            for value in self.adjlist[vertex1]:
-                self.adjlist[value].remove(vertex1)
-            del self.adjlist[vertex1]
+    def remove_vertex(self, vertex: str) -> bool:
+        if vertex in self.adjlist.keys():
+            for other_vertex in self.adjlist[vertex]:
+                self.adjlist[other_vertex].remove(vertex)
+            del self.adjlist[vertex]
             return True
         return False
 
