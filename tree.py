@@ -55,7 +55,7 @@ if __name__ == "__main__":
     print(my_tree.root)
     my_tree.insert__(10)
     my_tree.insert__(11)
-    print(my_tree.root.right.value)
+    print(my_tree.root.right.value)  # type: ignore
     my_tree.insert__(9)
     my_tree.insert__(12)
-    print(my_tree.root.right.right.value) # type: ignore
+    print(my_tree.root.right.right.value)  # type: ignore
