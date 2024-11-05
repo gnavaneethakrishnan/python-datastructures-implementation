@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 
 class Node:
@@ -106,6 +106,58 @@ class BinarySearchTree:
     def delete(self, value: int) -> Node | None:
         return self.__delete_(self.root, value)
 
+    def breadth_first_search(self):
+        current_node = self.root
+        q = []
+        results: List[int] = []
+        q.append(current_node)
+        while len(q) > 0:
+            current_node = q.pop(0)
+            results.append(current_node.value)
+            if current_node.left is not None:
+                q.append(current_node.left)
+            if current_node.right is not None:
+                q.append(current_node.right)
+        return results
+
+    def depth_first_search_pre(self):
+        results = []
+
+        def traverse(current_node):
+            results.append(current_node.left)
+            if current_node.left is not None:
+                traverse(current_node.left)
+            if current_node.right is not None:
+                traverse(current_node.right)
+
+        traverse(self.root)
+        return results
+
+    def depth_first_search_post(self):
+        results = []
+
+        def traverse(current_node):
+            if current_node.left is not None:
+                traverse(current_node.left)
+            if current_node.right is not None:
+                traverse(current_node.right)
+            results.append(current_node.value)
+
+        traverse(self.root)
+        return results
+
+    def depth_first_search_in(self):
+        results = []
+
+        def traverse(current_node):
+            if current_node.left is not None:
+                traverse(current_node.left)
+            results.append(current_node.value)
+            if current_node.right is not None:
+                traverse(current_node.right)
+        traverse(self.root)
+        return results
+
 
 if __name__ == "__main__":
     my_tree: BinarySearchTree = BinarySearchTree()
@@ -116,4 +168,7 @@ if __name__ == "__main__":
     print(my_tree.root.right.value)
     my_tree.insert(9)
     my_tree.insert(12)
+    print(my_tree.root.left.value)
     print(my_tree.root.right.right.value)  # type: ignore
+    print(my_tree.breadth_first_search())
+
